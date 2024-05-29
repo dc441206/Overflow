@@ -77,7 +77,7 @@ CC=gcc
 
 # -g                   : include debug info
 # -fno-stack-protector : disable stack protection
-CFLAGS=-g -o0 -fno-stack-protector 
+CFLAGS=-g -o0 -fno-stack-protector -Wno-format-security  -Wno-format 
 #-z execstack
 
 ifeq (${AUTOFRANK}, Y)
