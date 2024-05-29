@@ -214,7 +214,7 @@ int  request (void)
 int  main (const int argc,  const char* const argv[],  const char* const envp[])
 {
 	printf("  ___ _  _ ___ ___ ___ _   ___ _ _ _\n"
-	       "# | | |  | |__ |_/ |__ |   | | | | |  v1.0\n"
+	       "# | | |  | |__ |_/ |__ |   | | | | |  v1.1\n"
 	       "# |_|  \\/  |__ | \\ |   |__ |_| |_|_|  csBlueChip, 2024\n\n");
 
 	printf("# Friend Request ID: %d\n", getpid());
