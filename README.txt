@@ -73,3 +73,80 @@ and I can speed run all 11 challenges in ~46 seconds.
 
 Tested on:-
 	# Debian 12 x64 VM running inside VMWare v17
+
+----------------
+ The Challenges
+----------------
+
+The overflow challenges will be:
+
+(1) Who can find the most hilarious way to follow the instructions, 
+    while (deliberately) completely missing the point 
+    ...PoC||GTFO ...You MUST get all 11 Flags/Friends
+
+(2) Who can get the most Flags/Friends before the July 2024 meet.
+
+(3) The first person collect all 11 Flags/Friends
+
+---------------
+ Additional...
+---------------
+
+Aside of a couple of Hilarious (deliberately missing the point) solution
+proposals (sans PoC), I've had a couple of serious questions about what is
+and isn't "allowed" with regard to inputting data...
+
+I guess at some level: "This is hacking; a win is a win!"
+However, if you want to know what my original intent was:-
+
+The reason challenges 1..5 get gradually more difficult is because the data
+required becomes more and more difficult to produce with a keyboard - and the
+aim is to push you slowly toward looking at what happens between you pressing
+down on a keycap, and data being written to the program's input buffer.
+  [So that you are in a strong position to perform the later attacks, and
+   (possibly) even against an environment you don't fully control]
+
+The whole puzzle can be solved using only a keyboard - in fact my autopwn
+method literally simulates (as close as possible) someone pressing keys.
+  [cos I had to do this hundreds of times to make sure everything was stable
+   prior to release]
+
+One question was to change the `make run` line (in a redacted manner);
+and another was to wrap the `make run` up inside another program.
+
+Consider this:
+The more complicated version of this code would be *exactly* the same attack
+vectors, just sprinkled throughout many thousands of lines of code, and the 
+program will already be running (on the target machine) when you get there.
+...and instead of getting "you have a friend" printed on the screen,
+you get to perform an action such as "open a port in a firewall", or
+"bypass a password mechanism", etc.
+
+If you cannot or do not beat the challenges against an already-running copy of
+`overflow`, you will still learn a **LOT** about buffer overflow exploits by
+getting all the flags.
+...BUT, if you CAN attack `overflow` in a "realistic server-client
+configuration", you will be in a much stronger position to affect this style of
+attack in a real-life scenario.
+
+So perhaps we could add another challenge: 
+(4) Most number of flags, but the attack(s) will only work 
+    if you can control the way the program is started.
+
+If it helps, here is my "server" script:
+#!/bin/bash
+make clean
+while true ; do
+	printf "\n\n" ; printf "=%0.s" $(seq 1 70) ; printf "\n"
+	make run
+done
+
+And, running in a separate session, here is my autopwn script:
+#!/bin/bash
+for i in $(seq 1 11) ; do
+	./Call.sh $i
+	echo -e "\n"
+	sleep 1
+done
+
+`Call.sh` works out what needs to be typed for 'Friend $i' and types it.
