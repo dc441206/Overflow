@@ -145,7 +145,7 @@ exe:
 # The EXE will update if any of the SRC files have a 
 # timestamp more recent that EXE
 #
-$(EXE): $(SRC)
+$(EXE): $(SRC) Makefile
 	$(RMF) $(EXE) $(HELPER)/$(EXE)
 	$(CC) $(SRC)  $(CFLAGS) -o $(EXE)
 	@[[ -f $(EXE) && -d $(HELPER) ]] && $(CP) $(EXE) $(HELPER)/ || true
@@ -204,6 +204,10 @@ logging:
 	>>$(LOGP)`
 
 	@$(RMF) $(LOGR) $(LOGO) $(LOGI) $(LOGT)
+
+	@# --- support for systems that use `apport` (such as lubuntu)
+	@grep apport /proc/sys/kernel/core_pattern >/dev/null && \
+		cp /var/lib/apport/coredump/core.*.*.*.$(PID).* core || true
 
 	@[ -f core ] && ( \
 		mv  core  $(PID)--core ;\
