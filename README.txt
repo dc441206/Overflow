@@ -29,6 +29,30 @@ This project is released under the MIT licence (free as in "free").
 That said. This IS a community project, so issues, feedback, pull requests, etc.
 are welcomed and encouraged.
 
+------------------
+ Revision History
+------------------
+
+v1.1 - initial release
+v1.1 - interim patch for lubuntu coredump handling
+v1.2 - fixed (unintended) backdoor in cerberus()
+       added `make server`
+
+---------------
+ WSL : WARNING
+---------------
+
+On the 24/Oct/2016 stakemura reported to Microsoft that WSL does not produce
+coredump files. This has never been fixed. [June 2024]
+	https://github.com/microsoft/WSL/issues/1262
+
+As such, you cannot debug ANY program post-segfault under WSL !
+
+This set of challenges can definitely be solved without coredumps,
+but it is (debatably) going to be a LOT harder.
+
+I can only suggest you use VirtualBox or VMWare, and install Debian.
+
 -------
  Setup
 -------

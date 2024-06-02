@@ -99,6 +99,7 @@ default: help
 help:
 	@$(ECHO) "# all, exe, $(EXE) - build the program"
 	@$(ECHO) "# run         - run the program"
+	@$(ECHO) "# server      - run the program in a loop"
 	@$(ECHO) "# clean       - erase crashlogs & build files"
 	@$(ECHO) "# symbols     - dump the symbol table"
 	@$(ECHO) "# memmap      - dump the memory map"
@@ -107,14 +108,6 @@ help:
 	@$(ECHO) "# help        - this help"
 	@$(ECHO) ""
 	@$(ECHO) "# setup       - install required packages {$(PACKAGES)}"
-	@$(ECHO) ""
-	@$(ECHO) "# make exe AUTOFRANK=Y will inject the autofrank code (if you have it)"
-	
-#	@$(ECHO) ""
-#	# https://stackoverflow.com/a/38415982/2476535
-#	@$(ECHO) "NB. Enable \`make\` target completion with:"
-#	@$(ECHO) "    complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' Makefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" make"
-#	@$(ECHO) "    ...maybe add it to: ~/.bashrc"
 
 #------------------------------------------------------------------------------
 .PHONY: setup
@@ -139,7 +132,7 @@ all: $(EXE)
 exe:
 	@echo "makeflags: $(MAKEFLAGS)"
 	@$(RMF) $(EXE)
-	@make --no-print-directory $(EXE) 
+	@$(MAKE) --no-print-directory $(EXE) 
 
 #----------------------------------------------------------
 # The EXE will update if any of the SRC files have a 
@@ -149,6 +142,16 @@ $(EXE): $(SRC) Makefile
 	$(RMF) $(EXE) $(HELPER)/$(EXE)
 	$(CC) $(SRC)  $(CFLAGS) -o $(EXE)
 	@[[ -f $(EXE) && -d $(HELPER) ]] && $(CP) $(EXE) $(HELPER)/ || true
+
+#------------------------------------------------------------------------------
+# This will just run `overflow` in a loop for remote attacks
+#
+.PHONY: server
+server: $(EXE)
+	while true ; do \
+		printf "\n\n" ; printf "=%0.s" $$(seq 1 70) ; printf "\n" ;\
+		$(MAKE) --no-print-directory run || true ;\
+	done
 
 #------------------------------------------------------------------------------
 # We need to be sure `luit` is complete before we parse it's output
