@@ -80,10 +80,6 @@ CC=gcc
 CFLAGS=-g -o0 -fno-stack-protector -Wno-format-security  -Wno-format 
 #-z execstack
 
-ifeq (${AUTOFRANK}, Y)
-	CFLAGS+=-DAUTOFRANK
-endif
-
 #------------------------------------------------------------------------------
 # "default" MUST BE THE FIRST TARGET
 #
