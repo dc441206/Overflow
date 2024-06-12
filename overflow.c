@@ -189,7 +189,7 @@ int  request (void)
 
 	input("+ Name? : ", friend.name);
 
-	printf("# Friend {id=%X, job=%X}\n", friend.id, friend.job);
+	printf("# Friend {id=%X, job=%X}\n", HTONL(friend.id), HTONL(friend.job));
 
 	if      (friend.job == HTONL(436257407ul))
 		printf("* Friend #5 turns up with: A Shiny Sherrif Badge\n");
@@ -216,7 +216,7 @@ int  request (void)
 int  main (const int argc,  const char* const argv[],  const char* const envp[])
 {
 	printf("  ___ _  _ ___ ___ ___ _   ___ _ _ _\n"
-	       "# | | |  | |__ |_/ |__ |   | | | | |  v1.2\n"
+	       "# | | |  | |__ |_/ |__ |   | | | | |  v1.2a\n"
 	       "# |_|  \\/  |__ | \\ |   |__ |_| |_|_|  csBlueChip, 2024\n\n");
 
 	printf("# Friend Request ID: %d\n", getpid());
